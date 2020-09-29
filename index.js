@@ -61,6 +61,9 @@ function calcuteThePrice() {
     let repeatCustomer = document.getElementById("repeatCustomer").checked; 
     let colorSwap = document.getElementById("colorSwap").checked;
     let amountOfColorSwap = document.getElementById("colorSwapDisplay").value;
+
+    let displayThePrice = document.getElementById("displayThePrice");
+    let displayThePricePerArticle = document.getElementById("displayThePricePerArticle");
     
 
 
@@ -115,7 +118,9 @@ function calcuteThePrice() {
 
     theFinalSum = theFinalSum + oneTimePaymentCloth;
 
-    alert("priset är " + theFinalSum)
+    // alert("priset är " + theFinalSum)
+    displayThePrice.innerHTML = theFinalSum;
+    displayThePricePerArticle.innerHTML = theFinalSum / amountCloth;
 
     
 
