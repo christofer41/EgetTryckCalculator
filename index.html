@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="index.js"></script>
+    <script src="thePrice.js"></script>
+</head>
+<body>
+    <main>
+        <div id="clothType">
+            <label for="clothTypeContainer">Välj ett plagg eller skriv in priset manuellt</label>
+            <div id="clothTypeContainer">
+                <select name="clothType" id="clothTypeDropdown">
+                    <option value="select">Typ av plagg</option>
+                    <option value="tShirt">T-shirt</option>
+                    <option value="hoodie">Hoodie</option>
+                    <option value="keps">Keps</option>
+                </select>
+                <input id="clothTypePrice" type="text">
+            </div>
+        </div> 
+        <div>
+            <label for="clothAmount">Antal Plagg</label>
+            <input type="range" min="1" max="2500" value="1" class="slider" id="clothAmount">
+            <input id="clothDisplay" value="1"></input>
+        </div>
+        <div>
+            <label for="colorAmount">Antal Färger</label>
+            <input type="range" min="1" max="8" value="1" class="slider" id="colorAmount">
+            <input id="colorDisplay" value="1"></input>
+        </div>
+        <div>
+            <label for="mellanTryck">Mellan tryck?</label>
+            <input type="checkbox" id="mellanTryck" name="mellanTryck" value="mellanTryck">
+        </div>
+        <div>
+            <label for="repeatCustomer">Repeat kund?</label>
+            <input type="checkbox" id="repeatCustomer" name="repeatCustomer" value="repeat">
+        </div>
+        <div>
+            <label for="colorSwap">Byta färg?</label>
+            <input type="checkbox" id="colorSwap" name="colorSwapCheck" value="swap" onclick="displayColorSwap()">
+            <div>
+                <label for="colorSwapRange" class="showColorSwap">Hur många olika färger?</label>
+                <input type="range" min="1" max="2500" value="1" id="colorSwapRange" class="showColorSwap">
+                <input id="colorSwapDisplay" class="showColorSwap" value="1"></input>
+            </div>
+        </div>
+        <div>
+            <button onclick="calcuteThePrice()">Calculate</button>
+        </div>
+    </main>
+</body>
+</html>
