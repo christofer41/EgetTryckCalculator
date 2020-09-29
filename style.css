@@ -33,6 +33,19 @@ div{
     margin: 10px;
 }
 
+#priceDiv {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 2px solid red;
+}
+
 #priceDiv >* {
     margin: 2px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    justify-self: center;
+    align-items: center;
 }

@@ -10,6 +10,10 @@ var colorSwapSlider = document.getElementById("colorSwapRange");
 var colorSwapOutput = document.getElementById("colorSwapDisplay");
 colorSwapOutput.innerHTML = colorSwapSlider.value; // Display the default slider value
 
+var percentageSlider = document.getElementById("percentage");
+var percentageOutput = document.getElementById("percentageInput");
+percentageOutput.innerHTML = percentageSlider.value; // Display the default slider value
+
 let showColorSwap = document.getElementsByClassName("showColorSwap")
 
 for (let i = 0; i < showColorSwap.length; i++) {
@@ -34,6 +38,11 @@ clothSlider.oninput = function() {
 // Update the current slider value (each time you drag the slider handle)
 colorSwapSlider.oninput = function() {
     colorSwapOutput.value = this.value;
+};
+
+// Update the current slider value (each time you drag the slider handle)
+percentageSlider.oninput = function() {
+    percentageOutput.value = this.value;
 };
 
 
@@ -171,4 +180,57 @@ function checkPriceForCloth() {
     if (clothDropDown == "select") {
         return clothPriceEnter;
     }
+}
+
+function calcuteThePriceForCustomer() {
+    let percentagePrice = document.getElementById("percentageInput").value;
+    let test1 = document.getElementById("displayThePrice").innerHTML;
+    let test2 = document.getElementById("displayThePricePerArticle").innerHTML;
+
+    let thePriceForAll = Number(test1);
+    let thePriceForOne = Number(test2);
+
+    let displayThePriceAll = document.getElementById("displayThePriceCustomer");
+    let displayThePriceOne = document.getElementById("displayThePricePerArticleCustomer");
+    let displayThePriceAllMoms = document.getElementById("displayThePriceWithMoms");
+    let displayThePriceOneMoms = document.getElementById("displayThePricePerArticleWithMoms");
+
+    let percentageValue;
+    let percentageInNumber;
+
+
+    console.log(test1.length)
+
+    if (percentagePrice.length <= 2) {
+
+        console.log("test")
+        percentageValue = ("1." + percentagePrice)
+        percentageInNumber = Number(percentageValue);
+
+        console.log(percentageInNumber)
+        console.log(2 * percentageInNumber)
+
+        thePriceForAll = thePriceForAll * percentageInNumber;
+        thePriceForOne = thePriceForOne * percentageInNumber;
+    }
+    else {
+        test5 = percentagePrice.substring(1);
+        test6 = percentagePrice[0];
+        test7 = Number(test6);
+        percentageValue = test7 + 1 + "." + test5
+        percentageInNumber = Number(percentageValue);
+
+        thePriceForAll = thePriceForAll * percentageInNumber;
+        thePriceForOne = thePriceForOne * percentageInNumber;
+        
+        // console.log("over")
+    }
+
+
+    displayThePriceAll.innerHTML = thePriceForAll;
+    displayThePriceOne.innerHTML = thePriceForOne;
+
+    displayThePriceAllMoms.innerHTML = thePriceForAll * 1.25;
+    displayThePriceOneMoms.innerHTML = thePriceForOne * 1.25;
+
 }

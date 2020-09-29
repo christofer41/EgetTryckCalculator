@@ -53,10 +53,39 @@
             <button onclick="calcuteThePrice()">Calculate</button>
         </div>
         <div id="priceDiv">
-            <h3>Total Pris</h1>
-            <h3 id="displayThePrice">0</h1>
-            <h3>Pris per artikel</h1>
-            <h3 id="displayThePricePerArticle">0</h1>
+            <div>
+                <h3>Total Pris</h1>
+                <h3 id="displayThePrice">0</h1>
+            </div>
+            <div>
+                <h3>Pris per artikel</h1>
+                <h3 id="displayThePricePerArticle">0</h1>
+            </div>
+        </div>
+        <div>
+            <label for="percentage">Öka priset med procent</label>
+            <input type="range" min="0" max="300" value="1" class="slider" id="percentage">
+            <input id="percentageInput" value="0"></input>
+            <button onclick="calcuteThePriceForCustomer()">Customer Price</button>
+        </div>
+        <div id="priceDiv">
+            <div>
+                <h3>Total Pris utan moms</h1>
+                <h3 id="displayThePriceCustomer">0</h1>
+            </div>
+            <div>
+                <h3>Pris per artikel utan moms</h1>
+                <h3 id="displayThePricePerArticleCustomer">0</h1>
+            </div>
+
+            <div>
+                <h3>Total Pris med moms</h1>
+                <h3 id="displayThePriceWithMoms">0</h1>
+            </div>
+            <div>
+                <h3>Pris per artikel med moms</h1>
+                <h3 id="displayThePricePerArticleWithMoms">0</h1>
+            </div>
         </div>
     </main>
 </body>
