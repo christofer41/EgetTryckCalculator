@@ -94,22 +94,27 @@ function displayColorSwap() {
 
 function calcuteThePrice() {
 
+    //We enable the price input again so that we can collect info from it
     let clothPriceDis = document.getElementById("clothTypePrice");
     clothPriceDis.disabled = false;
 
-
-
+    //The amount of clothes
     let amountCloth = document.getElementById("clothDisplay").value;
+    //The amount of colors
     let amountColor = document.getElementById("colorDisplay").value;
+    //If the user wants mellantryck
     let mellanTryck = document.getElementById("mellanTryck").checked;
+    //If the customer is a repeat customer
     let repeatCustomer = document.getElementById("repeatCustomer").checked; 
+    //If the user wants to have different types of colors
     let colorSwap = document.getElementById("colorSwap").checked;
+    //How many different colors
     let amountOfColorSwap = document.getElementById("colorSwapDisplay").value;
 
+    //Here is where we will display the price for the total and the individual cloth
     let displayThePrice = document.getElementById("displayThePrice");
     let displayThePricePerArticle = document.getElementById("displayThePricePerArticle");
 
-    
 
     //One time payment
     let oneTimePaymentCloth = clothPrice * amountColor;
@@ -156,18 +161,26 @@ function calcuteThePrice() {
     //We add the color and cloth printing price
     theFinalSum = thePriceForAllCloth + thePriceForColor;
 
-    
+    //We add the one time payment
     theFinalSum = theFinalSum + oneTimePaymentCloth;
 
 
-    // alert("priset är " + theFinalSum)
+    //We display the price for the total and the individual sum
     displayThePrice.innerHTML = theFinalSum;
     displayThePricePerArticle.innerHTML = theFinalSum / amountCloth;
 
     
 
+    //We check if the input for the price should be disabled or not
+    let clothSelector = document.getElementById("clothTypeDropdown");
+    
+    if (clothSelector.value != "select") {
+        clothPriceDis.disabled = true;
+    }
+
 }
 
+//We use this function to check what the price of the color should be
 function collectPriceFromArray(amountColor, amountCloth) {
 
     let thePriceArray = colorArrays[amountColor-1];
@@ -204,8 +217,10 @@ function collectPriceFromArray(amountColor, amountCloth) {
 }
 
 function checkPriceForCloth() {
-    
-    let clothPriceEnter = document.getElementById("clothTypePrice").value;
+
+    let str = document.getElementById("clothTypePrice").value;
+
+    let clothPriceEnter = str.replace(/,/g, ".");
 
     return clothPriceEnter;
 }
@@ -251,7 +266,6 @@ function calcuteThePriceForCustomer() {
         thePriceForAll = thePriceForAll * percentageInNumber;
         thePriceForOne = thePriceForOne * percentageInNumber;
         
-        // console.log("over")
     }
 
 
