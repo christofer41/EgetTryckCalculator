@@ -16,6 +16,35 @@ percentageOutput.innerHTML = percentageSlider.value; // Display the default slid
 
 let showColorSwap = document.getElementsByClassName("showColorSwap")
 
+
+window.addEventListener("load", () => {
+    let clothSelector = document.getElementById("clothTypeDropdown");
+    let clothPrice = document.getElementById("clothTypePrice");
+
+    
+    clothSelector.onchange = function() {
+        console.log(clothSelector.value)
+
+        if (clothSelector.value == "select") {
+            clothPrice.value = "";
+            clothPrice.disabled = false;
+        }
+        else {
+            clothPrice.value = clothSelector.value;
+            clothPrice.disabled = true;
+        }
+        
+      }
+
+    for (let i = 0; i < typesOfCloth.length; i++) {
+        let clothCreation = document.createElement("option");
+        let changePriceToNumbers = typesOfCloth[i].price;
+        clothCreation.innerHTML = typesOfCloth[i].name;
+        clothCreation.value = Number(changePriceToNumbers);
+        clothSelector.appendChild(clothCreation);
+    }
+})
+
 for (let i = 0; i < showColorSwap.length; i++) {
     if (showColorSwap[i].style.display == "none") {
         showColorSwap[i].style.display = "flex"
@@ -64,6 +93,12 @@ function displayColorSwap() {
 
 
 function calcuteThePrice() {
+
+    let clothPriceDis = document.getElementById("clothTypePrice");
+    clothPriceDis.disabled = false;
+
+
+
     let amountCloth = document.getElementById("clothDisplay").value;
     let amountColor = document.getElementById("colorDisplay").value;
     let mellanTryck = document.getElementById("mellanTryck").checked;
@@ -73,8 +108,8 @@ function calcuteThePrice() {
 
     let displayThePrice = document.getElementById("displayThePrice");
     let displayThePricePerArticle = document.getElementById("displayThePricePerArticle");
-    
 
+    
 
     //One time payment
     let oneTimePaymentCloth = clothPrice * amountColor;
@@ -95,20 +130,20 @@ function calcuteThePrice() {
     //we adjust the price of print depending on how many pieces of cloth we need to print.
     thePriceForAllCloth = thePricePerCloth * amountCloth;
 
+    
     //If the user has selected mellantryck
     if (mellanTryck) {
         let priceForMellanTryck = mellanTryckArray[amountColor -1] * amountCloth;
-
+        
         thePriceForAllCloth = priceForMellanTryck + thePriceForAllCloth;
-
+        
     }
-
+    
     //We check what array the color price should use;
     thePriceForColor = collectPriceFromArray(amountColor, amountCloth);
-
+    
     //we adjust the price of color depending on how many pieces of cloth we need to print.
     thePriceForColor = thePriceForColor * amountCloth;
-    
 
     //If the user has asked for multiple colors
     if (colorSwap) {
@@ -117,15 +152,13 @@ function calcuteThePrice() {
         thePriceForColor = thePriceForColor + colorSwapCost;
     }
 
-
-    console.log(thePriceForColor);
-    console.log(thePriceForAllCloth);
-
     
     //We add the color and cloth printing price
     theFinalSum = thePriceForAllCloth + thePriceForColor;
 
+    
     theFinalSum = theFinalSum + oneTimePaymentCloth;
+
 
     // alert("priset är " + theFinalSum)
     displayThePrice.innerHTML = theFinalSum;
@@ -171,15 +204,10 @@ function collectPriceFromArray(amountColor, amountCloth) {
 }
 
 function checkPriceForCloth() {
+    
     let clothPriceEnter = document.getElementById("clothTypePrice").value;
-    let clothDropDown = document.getElementById("clothTypeDropdown");
-    clothDropDown = clothDropDown.options[clothDropDown.selectedIndex].value;
 
-
-    console.log(clothDropDown)
-    if (clothDropDown == "select") {
-        return clothPriceEnter;
-    }
+    return clothPriceEnter;
 }
 
 function calcuteThePriceForCustomer() {

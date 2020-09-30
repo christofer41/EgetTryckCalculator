@@ -112,4 +112,68 @@ let colorArrays = [
     ],    
 
 
+];
+
+
+let typesOfCloth = [
+    one = {
+        name: "Gildan t-shirt 5000",
+        price: 19.5
+    },
+    two = {
+        name: "Gildan t-shirt 64000",
+        price: 19.5
+    },
+    three = {
+        name: "Gildan Sweatshirt 18000",
+        price: 56
+    },
+    four = {
+        name: "Gildan Hoodie 18500",
+        price: 78
+    },
+    five = {
+        name: "Gildan Ziphoodie 18600",
+        price: 113
+    },
+    six = {
+        name: "B&C King/Queen Crew Neck",
+        price: 91
+    },
+    seven = {
+        name: "B&C King/Queen Hooded",
+        price: 120
+    },
+    eight = {
+        name: "B&C King/Queen Zipped Hood",
+        price: 146
+    },
+    nine = {
+        name: "B&C Organic Crew Neck",
+        price: 81
+    },
+    ten = {
+        name: "B&C Organic Hooded",
+        price: 103
+    },
+    eleven = {
+        name: "B&C Organic Zipped Hood",
+        price: 124
+    },
+    twelve = {
+        name: "Tygkasse WM101",
+        price: 10
+    },
+    thirteen = {
+        name: "TriDri Performance T-shirt",
+        price: 30
+    },
+    fourteen = {
+        name: "Urban Classics Hoodie TB014",
+        price: 175
+    },
+    fifteen = {
+        name: "Urban Classics Ziphood TB014C",
+        price: 195
+    },
 ]
