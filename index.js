@@ -178,6 +178,8 @@ function calcuteThePrice() {
         clothPriceDis.disabled = true;
     }
 
+    calcuteThePriceForCustomer();
+
 }
 
 //We use this function to check what the price of the color should be
