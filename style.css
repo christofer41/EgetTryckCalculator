@@ -89,3 +89,17 @@ div{
     justify-self: center;
     align-items: center;
 }
+
+#printAmount {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+#printAmount >* {
+    margin: 5px;
+}
+
+.printAmount {
+    width: 30%;
+}

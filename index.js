@@ -163,12 +163,13 @@ function calcuteThePrice() {
 
     //We add the one time payment
     theFinalSum = theFinalSum + oneTimePaymentCloth;
+    let theSumPerArticle = theFinalSum / amountCloth;
 
-
+    theFinalSum = roundThePrice(theFinalSum);
+    theSumPerArticle = roundThePrice(theFinalSum);
     //We display the price for the total and the individual sum
     displayThePrice.innerHTML = theFinalSum;
-    displayThePricePerArticle.innerHTML = theFinalSum / amountCloth;
-
+    displayThePricePerArticle.innerHTML = theSumPerArticle;
     
 
     //We check if the input for the price should be disabled or not
@@ -177,6 +178,7 @@ function calcuteThePrice() {
     if (clothSelector.value != "select") {
         clothPriceDis.disabled = true;
     }
+
 
     calcuteThePriceForCustomer();
 
@@ -270,11 +272,64 @@ function calcuteThePriceForCustomer() {
         
     }
 
+    thePriceForAll = roundThePrice(thePriceForAll);
+    thePriceForOne = roundThePrice(thePriceForOne);
+
+    let thePriceForAllMoms =  thePriceForAll * 1.25;
+    let thePriceForOneMoms =  thePriceForOne * 1.25;
+
+    thePriceForAllMoms = roundThePrice(thePriceForAllMoms);
+    thePriceForOneMoms = roundThePrice(thePriceForOneMoms);
 
     displayThePriceAll.innerHTML = thePriceForAll;
     displayThePriceOne.innerHTML = thePriceForOne;
 
-    displayThePriceAllMoms.innerHTML = thePriceForAll * 1.25;
-    displayThePriceOneMoms.innerHTML = thePriceForOne * 1.25;
+    displayThePriceAllMoms.innerHTML = thePriceForAllMoms;
+    displayThePriceOneMoms.innerHTML = thePriceForOneMoms;
+
+}
+
+function roundThePrice(price) {
+
+    price = Number(price);
+    price = price.toFixed(1);
+
+    let decimals = price % 1
+    decimals = decimals.toFixed(1)
+
+    price = Math.floor(price);
+
+    let top = 0;
+    let bottom = 0;
+
+    let decimalsWholeNumber = decimals.toString();
+    decimalsWholeNumber = decimalsWholeNumber.substring(1)
+    decimalsWholeNumber = decimalsWholeNumber.substring(1)
+
+
+
+    for (let i = decimalsWholeNumber ; i != 10; i++) {
+        console.log(i)
+        top++;
+    }
+    console.log(decimals + " decimals")
+
+    console.log(price)
+
+
+    if (top < 3) {
+        price = price + 1;
+    }
+    if (top > 7) {
+        price;
+    }
+    else {
+        price = price + 0.50;
+        price = price.toFixed(2)
+    }
+
+    console.log(price + " thePriceWith")
+
+    return price;
 
 }
