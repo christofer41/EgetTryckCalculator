@@ -1,7 +1,3 @@
-var colorSlider = document.getElementById("colorAmount");
-var colorOutput = document.getElementById("colorDisplay");
-colorOutput.innerHTML = colorSlider.value; // Display the default slider value
-
 var clothSlider = document.getElementById("clothAmount");
 var clothOutput = document.getElementById("clothDisplay");
 clothOutput.innerHTML = clothSlider.value; // Display the default slider value
@@ -15,6 +11,8 @@ var percentageOutput = document.getElementById("percentageInput");
 percentageOutput.innerHTML = percentageSlider.value; // Display the default slider value
 
 let showColorSwap = document.getElementsByClassName("showColorSwap")
+
+let thePriceArray;
 
 
 window.addEventListener("load", () => {
@@ -53,11 +51,6 @@ for (let i = 0; i < showColorSwap.length; i++) {
         showColorSwap[i].style.display = "none"
     }
 }
-
-// Update the current slider value (each time you drag the slider handle)
-colorSlider.oninput = function() {
-  colorOutput.value = this.value;
-};
 
 // Update the current slider value (each time you drag the slider handle)
 clothSlider.oninput = function() {
@@ -100,8 +93,7 @@ function calcuteThePrice() {
 
     //The amount of clothes
     let amountCloth = document.getElementById("clothDisplay").value;
-    //The amount of colors
-    let amountColor = document.getElementById("colorDisplay").value;
+
     //If the user wants mellantryck
     let mellanTryck = document.getElementById("mellanTryck").checked;
     //If the customer is a repeat customer
@@ -116,8 +108,6 @@ function calcuteThePrice() {
     let displayThePricePerArticle = document.getElementById("displayThePricePerArticle");
 
 
-    //One time payment
-    let oneTimePaymentCloth = clothPrice * amountColor;
     //the price for a single cloth
     let thePricePerCloth = checkPriceForCloth();
     //the price for all clothes together
@@ -127,28 +117,27 @@ function calcuteThePrice() {
     //the price all put together
     let theFinalSum;
 
-    //If the customer is a repeating customer
-    if (repeatCustomer) {
-        thePricePerCloth = amountColor * repeatPrice;
-    }
+    // //If the customer is a repeating customer
+    // if (repeatCustomer) {
+    //     thePricePerCloth = amountColor * repeatPrice;
+    // }
 
     //we adjust the price of print depending on how many pieces of cloth we need to print.
     thePriceForAllCloth = thePricePerCloth * amountCloth;
 
     
     //If the user has selected mellantryck
-    if (mellanTryck) {
-        let priceForMellanTryck = mellanTryckArray[amountColor -1] * amountCloth;
+    // if (mellanTryck) {
+    //     let priceForMellanTryck = mellanTryckArray[amountColor -1] * amountCloth;
         
-        thePriceForAllCloth = priceForMellanTryck + thePriceForAllCloth;
+    //     thePriceForAllCloth = priceForMellanTryck + thePriceForAllCloth;
         
-    }
+    // }
     
     //We check what array the color price should use;
-    thePriceForColor = collectPriceFromArray(amountColor, amountCloth);
-    
-    //we adjust the price of color depending on how many pieces of cloth we need to print.
-    thePriceForColor = thePriceForColor * amountCloth;
+    thePriceForColor = collectPriceFromColors(amountCloth);
+
+
 
     //If the user has asked for multiple colors
     if (colorSwap) {
@@ -161,12 +150,10 @@ function calcuteThePrice() {
     //We add the color and cloth printing price
     theFinalSum = thePriceForAllCloth + thePriceForColor;
 
-    //We add the one time payment
-    theFinalSum = theFinalSum + oneTimePaymentCloth;
     let theSumPerArticle = theFinalSum / amountCloth;
 
     theFinalSum = roundThePrice(theFinalSum);
-    theSumPerArticle = roundThePrice(theFinalSum);
+    theSumPerArticle = roundThePrice(theSumPerArticle);
     //We display the price for the total and the individual sum
     displayThePrice.innerHTML = theFinalSum;
     displayThePricePerArticle.innerHTML = theSumPerArticle;
@@ -179,7 +166,6 @@ function calcuteThePrice() {
         clothPriceDis.disabled = true;
     }
 
-
     calcuteThePriceForCustomer();
 
 }
@@ -187,8 +173,10 @@ function calcuteThePrice() {
 //We use this function to check what the price of the color should be
 function collectPriceFromArray(amountColor, amountCloth) {
 
-    let thePriceArray = colorArrays[amountColor-1];
+    thePriceArray = colorArrays[amountColor-1];
     let thePriceForColor;
+
+    console.log(thePriceArray)
 
     if (amountCloth <= 9) {
         thePriceForColor = thePriceArray[0];
@@ -220,15 +208,19 @@ function collectPriceFromArray(amountColor, amountCloth) {
     return(thePriceForColor);
 }
 
+/**
+ * We collect the price of the cloth and change any semicolon to a dot
+ */
 function checkPriceForCloth() {
 
     let str = document.getElementById("clothTypePrice").value;
-
     let clothPriceEnter = str.replace(/,/g, ".");
-
     return clothPriceEnter;
 }
 
+/**
+ * Here we calculate the price for the customer, depending on how many percentage the user chose
+ */
 function calcuteThePriceForCustomer() {
     let percentagePrice = document.getElementById("percentageInput").value;
     let test1 = document.getElementById("displayThePrice").innerHTML;
@@ -246,16 +238,12 @@ function calcuteThePriceForCustomer() {
     let percentageInNumber;
 
 
-    console.log(test1.length)
+
 
     if (percentagePrice.length <= 2) {
 
-        console.log("test")
         percentageValue = ("1." + percentagePrice)
         percentageInNumber = Number(percentageValue);
-
-        console.log(percentageInNumber)
-        console.log(2 * percentageInNumber)
 
         thePriceForAll = thePriceForAll * percentageInNumber;
         thePriceForOne = thePriceForOne * percentageInNumber;
@@ -289,6 +277,10 @@ function calcuteThePriceForCustomer() {
 
 }
 
+/**
+ * Here we round the price to either a full number or a .50
+ * @param {the price} price 
+ */
 function roundThePrice(price) {
 
     price = Number(price);
@@ -309,13 +301,8 @@ function roundThePrice(price) {
 
 
     for (let i = decimalsWholeNumber ; i != 10; i++) {
-        console.log(i)
         top++;
     }
-    console.log(decimals + " decimals")
-
-    console.log(price)
-
 
     if (top < 3) {
         price = price + 1;
@@ -328,8 +315,118 @@ function roundThePrice(price) {
         price = price.toFixed(2)
     }
 
-    console.log(price + " thePriceWith")
-
     return price;
-
 }
+
+function collectPriceFromColors(amountCloth) {
+    let theColorDivs = document.getElementsByClassName("printAmount");
+
+    
+    let leftArmColor = theColorDivs[0].value;
+    let rightArmColor = theColorDivs[1].value;
+    let frontColor = theColorDivs[2].value;
+    let backColor = theColorDivs[3].value;
+
+    let leftArmNumber = leftArmColor;
+    let rightArmNumber = rightArmColor;
+    let frontNumber = frontColor;
+    let backNumber = backColor;
+
+    
+    console.log(leftArmColor)
+
+    if(leftArmColor == 0) {
+        leftArmColor = 0;
+    } else {
+        leftArmColor = collectPriceFromArray(leftArmColor, amountCloth);
+    }
+
+    if(rightArmColor == 0) {
+        rightArmColor = 0;
+    } else {
+        rightArmColor = collectPriceFromArray(rightArmColor, amountCloth);
+    }
+
+    if(frontColor == 0) {
+        frontColor = 0;
+    } else {
+        frontColor = collectPriceFromArray(frontColor, amountCloth);
+    }
+
+    if(backColor == 0) {
+        backColor = 0;
+    } else {
+        backColor = collectPriceFromArray(backColor, amountCloth);
+    }
+
+    
+    leftArmColor = Number(leftArmColor);
+    rightArmColor = Number(rightArmColor);
+    frontColor = Number(frontColor);
+    backColor = Number(backColor);
+    
+    
+    console.log(leftArmColor);
+    console.log(rightArmColor);
+    console.log(frontColor);
+    console.log(backColor);
+    
+    
+    let test5 = 0;
+    // If the user has selected mellantryck
+    if (mellanTryck.checked) {
+        let test1 = 0;
+        let test2 = 0;
+        let test3 = 0;
+        let test4 = 0;
+
+        if (leftArmNumber != 0) {
+            test1 = mellanTryckArray[leftArmNumber -1];
+        };
+
+        if (rightArmNumber != 0) {
+            test2 = mellanTryckArray[rightArmNumber -1];
+        }
+        
+        if (frontNumber != 0) {
+            test3 = mellanTryckArray[frontNumber -1];
+        }
+
+        if (backColor != 0) {
+            test4 = mellanTryckArray[backNumber -1];
+        }
+
+        test5 = test1 + test2 + test3 + test4;
+        test5 = Number(test5);
+    }
+
+    console.log(test5 + " test5")
+
+
+
+    let allColorsPrice = leftArmColor + rightArmColor + frontColor + backColor + test5; 
+    allColorsPrice = allColorsPrice * amountCloth;
+    
+    //One time payment
+    leftArmColor = 325 * leftArmNumber;
+    rightArmColor = 325 * rightArmNumber;
+    frontColor = 325 * frontNumber;
+    backColor = 325 * backNumber;
+
+
+    allColorsPrice = allColorsPrice + leftArmColor + rightArmColor + frontColor + backColor;
+
+    console.log(allColorsPrice + " with One time pay");
+
+    return allColorsPrice;
+
+    // console.log(thePriceArray)
+}
+
+
+    // //If the customer is a repeating customer
+    // if (repeatCustomer) {
+    //     thePricePerCloth = amountColor * repeatPrice;
+    // }
+
+    
