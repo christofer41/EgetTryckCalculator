@@ -98,8 +98,22 @@ div{
 
 #printAmount >* {
     margin: 5px;
+    border: 2px solid rgb(70, 70, 70);
+
+    display: flex;
+    justify-content: center;
+
+    max-width: 100px;
+    min-width: 50px;
+}
+
+#printAmount div >* {
+    display: flex;
+    justify-content: center;
 }
 
 .printAmount {
-    width: 30%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
 }
