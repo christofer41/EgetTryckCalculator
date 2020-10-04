@@ -96,8 +96,7 @@ function calcuteThePrice() {
 
     //If the user wants mellantryck
     let mellanTryck = document.getElementById("mellanTryck").checked;
-    //If the customer is a repeat customer
-    let repeatCustomer = document.getElementById("repeatCustomer").checked; 
+
     //If the user wants to have different types of colors
     let colorSwap = document.getElementById("colorSwap").checked;
     //How many different colors
@@ -319,7 +318,9 @@ function roundThePrice(price) {
 }
 
 function collectPriceFromColors(amountCloth) {
-    let theColorDivs = document.getElementsByClassName("printAmount");
+    let theColorDivs = document.getElementsByClassName("printAmount");    //If the customer is a repeat customer
+
+    let repeatCustomer = document.getElementById("repeatCustomer").checked; 
 
     
     let leftArmColor = theColorDivs[0].value;
@@ -406,12 +407,27 @@ function collectPriceFromColors(amountCloth) {
 
     let allColorsPrice = leftArmColor + rightArmColor + frontColor + backColor + test5; 
     allColorsPrice = allColorsPrice * amountCloth;
+
+
+        //One time payment
+
+        // //If the customer is a repeating customer
+    if (repeatCustomer) {
+        leftArmColor = repeatPrice * leftArmNumber;
+        rightArmColor = repeatPrice * rightArmNumber;
+        frontColor = repeatPrice * frontNumber;
+        backColor = repeatPrice * backNumber;
+
+        console.log(frontColor + " repeat")
+    }else {
+        //One time payment
+        leftArmColor = clothPrice * leftArmNumber;
+        rightArmColor = clothPrice * rightArmNumber;
+        frontColor = clothPrice * frontNumber;
+        backColor = clothPrice * backNumber;
+        console.log(frontColor + " noRepeat")
+    }
     
-    //One time payment
-    leftArmColor = 325 * leftArmNumber;
-    rightArmColor = 325 * rightArmNumber;
-    frontColor = 325 * frontNumber;
-    backColor = 325 * backNumber;
 
 
     allColorsPrice = allColorsPrice + leftArmColor + rightArmColor + frontColor + backColor;
