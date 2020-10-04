@@ -15,54 +15,19 @@ let showColorSwap = document.getElementsByClassName("showColorSwap")
 let thePriceArray;
 
 
+window.addEventListener("load", () => {
+    let clothSelector = document.getElementById("clothTypeDropdown");
+    let clothPrice = document.getElementById("clothTypePrice");
 
-// Execute a function when the user releases a key on the keyboard
-let percentageInput = document.getElementById("percentageInput");
-percentageInput.addEventListener("keyup", function(event) {
-  // Number 13 is the "Enter" key on the keyboard
-  if (event.keyCode === 13 || event.key == "enter") {
+    document.addEventListener("keyup", function(event) {
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13 || event.key == "enter") {
     // Cancel the default action, if needed
     event.preventDefault();
     // Trigger the button element with a click
     document.getElementById("calcuteThePriceButton").click();
   }
 });
-
-// Execute a function when the user releases a key on the keyboard
-let clothTypePrice = document.getElementById("clothTypePrice");
-clothTypePrice.addEventListener("keyup", function(event) {
-  if (event.keyCode === 13 || event.key == "enter") {
-    event.preventDefault();
-    document.getElementById("calcuteThePriceButton").click();
-  }
-});
-
-// Execute a function when the user releases a key on the keyboard
-let clothDisplayInput = document.getElementById("clothDisplay");
-clothDisplayInput.addEventListener("keyup", function(event) {
-  if (event.keyCode === 13 || event.key == "enter") {
-    event.preventDefault();
-    document.getElementById("calcuteThePriceButton").click();
-  }
-});
-
-// Execute a function when the user releases a key on the keyboard
-let printAmountInput = document.getElementsByClassName("printAmount");
-
-for (let i = 0; i < printAmountInput.length; i++) {
-    printAmountInput[i].addEventListener("keyup", function(event) {
-      if (event.keyCode === 13 || event.key == "enter") {
-        event.preventDefault();
-        document.getElementById("calcuteThePriceButton").click();
-      }
-    });
-}
-
-
-window.addEventListener("load", () => {
-    let clothSelector = document.getElementById("clothTypeDropdown");
-    let clothPrice = document.getElementById("clothTypePrice");
-
     
     clothSelector.onchange = function() {
         console.log(clothSelector.value)
