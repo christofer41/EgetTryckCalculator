@@ -18,12 +18,18 @@
                         <option value="select">Typ av plagg</option>
                     </select>
                     <input id="clothTypePrice" type="text">
+                    <input id="clothTypePriceChanged" type="text">
                 </div>
             </div> 
             <div>
                 <label for="clothAmount">Antal Plagg</label>
                 <input type="range" min="1" max="300" value="1" class="slider" id="clothAmount">
                 <input id="clothDisplay" value="1"></input>
+            </div>
+            <div>
+                <label for="clothPercentageInput">Öka priset för Plagg</label>
+                <input type="range" min="10" max="300" value="10" class="slider" id="clothPercentage">
+                <input id="clothPercentageInput" value="10"></input>
             </div>
             <div id="printAmount">
                 <div>
@@ -61,9 +67,9 @@
                 </div>
             </div>
             <div>
-                <label for="percentage">Öka priset med procent</label>
-                <input type="range" min="0" max="300" value="1" class="slider" id="percentage">
-                <input id="percentageInput" value="0"></input>
+                <label for="percentage">Öka priset för färg</label>
+                <input type="range" min="10" max="300" value="10" class="slider" id="percentage">
+                <input id="percentageInput" value="10"></input>
             </div>
             <div>
                 <button id="calcuteThePriceButton" onclick="calcuteThePrice()">Calculate</button>
