@@ -18,6 +18,9 @@ let showColorSwap = document.getElementsByClassName("showColorSwap")
 
 let thePriceArray;
 
+let thePriceForTheColors;
+let thePriceForTheCloth;
+
 
 window.addEventListener("load", () => {
     let clothSelector = document.getElementById("clothTypeDropdown");
@@ -34,7 +37,6 @@ window.addEventListener("load", () => {
 });
     
     clothSelector.onchange = function() {
-        console.log(clothSelector.value)
 
         if (clothSelector.value == "select") {
             clothPrice.value = "";
@@ -105,9 +107,10 @@ function displayColorSwap() {
 }
 
 
-
-
 function calcuteThePrice() {
+
+    let percentageForCloth = document.getElementById("clothPercentageInput").value
+    let percentageForClothDisplay = document.getElementById("clothTypePriceChanged");
 
     //We enable the price input again so that we can collect info from it
     let clothPriceDis = document.getElementById("clothTypePrice");
@@ -138,14 +141,23 @@ function calcuteThePrice() {
     //the price all put together
     let theFinalSum;
 
+
+
+
+    percentageForCloth = calculateThePercentage(percentageForCloth);
+
+    let thePricePerClothUpdated = percentageForCloth * thePricePerCloth;
+    percentageForClothDisplay.value = roundThePrice(thePricePerClothUpdated)
+
+
     //we adjust the price of print depending on how many pieces of cloth we need to print.
+
     thePriceForAllCloth = thePricePerCloth * amountCloth;
+    thePriceForTheCloth = thePriceForAllCloth * percentageForCloth;
 
     
     //We check what array the color price should use;
     thePriceForColor = collectPriceFromColors(amountCloth);
-
-
 
     //If the user has asked for multiple colors
     if (colorSwap) {
@@ -184,7 +196,6 @@ function collectPriceFromArray(amountColor, amountCloth) {
     thePriceArray = colorArrays[amountColor-1];
     let thePriceForColor;
 
-    console.log(thePriceArray)
 
     if (amountCloth <= 9) {
         thePriceForColor = thePriceArray[0];
@@ -230,45 +241,37 @@ function checkPriceForCloth() {
  * Here we calculate the price for the customer, depending on how many percentage the user chose
  */
 function calcuteThePriceForCustomer() {
+    let repeatCustomer = document.getElementById("repeatCustomer").checked; //If the customer is a repeat customer
+        
     let percentagePrice = document.getElementById("percentageInput").value;
-    let test1 = document.getElementById("displayThePrice").innerHTML;
-    let test2 = document.getElementById("displayThePricePerArticle").innerHTML;
+    let amountOfCloth = document.getElementById("clothDisplay").value
 
-    let thePriceForAll = Number(test1);
-    let thePriceForOne = Number(test2);
+    percentagePrice = calculateThePercentage(percentagePrice);
+
+    let test1 = thePriceForTheCloth;
+    let test2 = (thePriceForTheColors * amountOfCloth);
+    test2 = (test2 * percentagePrice);
+    let test3 = test1 + test2;
+
+    // //If the customer is a repeating customer
+    if (repeatCustomer) {
+        test3 = test3 + repeatPrice;
+    }else {
+        test3 = test3 + clothPrice;
+    }
+
+    console.log(test1 + " + " + test2)
+    console.log(test3)
+
 
     let displayThePriceAll = document.getElementById("displayThePriceCustomer");
     let displayThePriceOne = document.getElementById("displayThePricePerArticleCustomer");
     let displayThePriceAllMoms = document.getElementById("displayThePriceWithMoms");
     let displayThePriceOneMoms = document.getElementById("displayThePricePerArticleWithMoms");
+     
 
-    let percentageValue;
-    let percentageInNumber;
-
-
-
-
-    if (percentagePrice.length <= 2) {
-
-        percentageValue = ("1." + percentagePrice)
-        percentageInNumber = Number(percentageValue);
-
-        thePriceForAll = thePriceForAll * percentageInNumber;
-        thePriceForOne = thePriceForOne * percentageInNumber;
-    }
-    else {
-        test5 = percentagePrice.substring(1);
-        test6 = percentagePrice[0];
-        test7 = Number(test6);
-        percentageValue = test7 + 1 + "." + test5
-        percentageInNumber = Number(percentageValue);
-
-        thePriceForAll = thePriceForAll * percentageInNumber;
-        thePriceForOne = thePriceForOne * percentageInNumber;
-        
-    }
-
-    thePriceForAll = roundThePrice(thePriceForAll);
+    thePriceForAll = roundThePrice(test3);
+    thePriceForOne = test3 / amountOfCloth;
     thePriceForOne = roundThePrice(thePriceForOne);
 
     let thePriceForAllMoms =  thePriceForAll * 1.25;
@@ -307,7 +310,6 @@ function roundThePrice(price) {
     decimalsWholeNumber = decimalsWholeNumber.substring(1)
 
 
-
     for (let i = decimalsWholeNumber ; i != 10; i++) {
         top++;
     }
@@ -327,9 +329,10 @@ function roundThePrice(price) {
 }
 
 function collectPriceFromColors(amountCloth) {
-    let theColorDivs = document.getElementsByClassName("printAmount");    //If the customer is a repeat customer
+    let theColorDivs = document.getElementsByClassName("printAmount");    
 
-    let repeatCustomer = document.getElementById("repeatCustomer").checked; 
+
+    let repeatCustomer = document.getElementById("repeatCustomer").checked; //If the customer is a repeat customer
 
     
     let leftArmColor = theColorDivs[0].value;
@@ -341,9 +344,6 @@ function collectPriceFromColors(amountCloth) {
     let rightArmNumber = rightArmColor;
     let frontNumber = frontColor;
     let backNumber = backColor;
-
-    
-    console.log(leftArmColor)
 
     if(leftArmColor == 0) {
         leftArmColor = 0;
@@ -375,13 +375,6 @@ function collectPriceFromColors(amountCloth) {
     frontColor = Number(frontColor);
     backColor = Number(backColor);
     
-    
-    console.log(leftArmColor);
-    console.log(rightArmColor);
-    console.log(frontColor);
-    console.log(backColor);
-    
-    
     let test5 = 0;
     // If the user has selected mellantryck
     if (mellanTryck.checked) {
@@ -410,11 +403,10 @@ function collectPriceFromColors(amountCloth) {
         test5 = Number(test5);
     }
 
-    console.log(test5 + " test5")
-
 
 
     let allColorsPrice = leftArmColor + rightArmColor + frontColor + backColor + test5; 
+    thePriceForTheColors = allColorsPrice;
     allColorsPrice = allColorsPrice * amountCloth;
 
 
@@ -427,31 +419,35 @@ function collectPriceFromColors(amountCloth) {
         frontColor = repeatPrice * frontNumber;
         backColor = repeatPrice * backNumber;
 
-        console.log(frontColor + " repeat")
     }else {
         //One time payment
         leftArmColor = clothPrice * leftArmNumber;
         rightArmColor = clothPrice * rightArmNumber;
         frontColor = clothPrice * frontNumber;
         backColor = clothPrice * backNumber;
-        console.log(frontColor + " noRepeat")
     }
     
 
-
     allColorsPrice = allColorsPrice + leftArmColor + rightArmColor + frontColor + backColor;
 
-    console.log(allColorsPrice + " with One time pay");
-
     return allColorsPrice;
-
-    // console.log(thePriceArray)
 }
 
 
-    // //If the customer is a repeating customer
-    // if (repeatCustomer) {
-    //     thePricePerCloth = amountColor * repeatPrice;
-    // }
+function calculateThePercentage(percentage) {
+    let percentageValue;
+    let percentageInNumber;
+    if (percentage.length <= 2) {
 
-    
+        percentageValue = ("1." + percentage)
+        percentageInNumber = Number(percentageValue);
+    }
+    else {
+        test5 = percentage.substring(1);
+        test6 = percentage[0];
+        test7 = Number(test6);
+        percentageValue = test7 + 1 + "." + test5
+        percentageInNumber = Number(percentageValue);       
+    }
+    return percentageInNumber;
+}
