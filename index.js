@@ -10,6 +10,10 @@ var percentageSlider = document.getElementById("percentage");
 var percentageOutput = document.getElementById("percentageInput");
 percentageOutput.innerHTML = percentageSlider.value; // Display the default slider value
 
+var clothPercentageSlider = document.getElementById("clothPercentage");
+var clothPercentageOutput = document.getElementById("clothPercentageInput");
+clothPercentageOutput.innerHTML = clothPercentageSlider.value; // Display the default slider value
+
 let showColorSwap = document.getElementsByClassName("showColorSwap")
 
 let thePriceArray;
@@ -64,16 +68,25 @@ for (let i = 0; i < showColorSwap.length; i++) {
 // Update the current slider value (each time you drag the slider handle)
 clothSlider.oninput = function() {
     clothOutput.value = this.value;
+    calcuteThePrice()
 };
 
 // Update the current slider value (each time you drag the slider handle)
 colorSwapSlider.oninput = function() {
     colorSwapOutput.value = this.value;
+    calcuteThePrice()
 };
 
 // Update the current slider value (each time you drag the slider handle)
 percentageSlider.oninput = function() {
     percentageOutput.value = this.value;
+    calcuteThePrice()
+};
+
+// Update the current slider value (each time you drag the slider handle)
+clothPercentageSlider.oninput = function() {
+    clothPercentageOutput.value = this.value;
+    calcuteThePrice()
 };
 
 
@@ -125,22 +138,9 @@ function calcuteThePrice() {
     //the price all put together
     let theFinalSum;
 
-    // //If the customer is a repeating customer
-    // if (repeatCustomer) {
-    //     thePricePerCloth = amountColor * repeatPrice;
-    // }
-
     //we adjust the price of print depending on how many pieces of cloth we need to print.
     thePriceForAllCloth = thePricePerCloth * amountCloth;
 
-    
-    //If the user has selected mellantryck
-    // if (mellanTryck) {
-    //     let priceForMellanTryck = mellanTryckArray[amountColor -1] * amountCloth;
-        
-    //     thePriceForAllCloth = priceForMellanTryck + thePriceForAllCloth;
-        
-    // }
     
     //We check what array the color price should use;
     thePriceForColor = collectPriceFromColors(amountCloth);
