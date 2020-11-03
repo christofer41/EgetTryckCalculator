@@ -29,7 +29,7 @@
             <div>
                 <label for="clothPercentageInput">Öka priset för Plagg</label>
                 <input type="range" min="10" max="300" value="100" class="slider" id="clothPercentage">
-                <input id="clothPercentageInput" value="10"></input>
+                <input id="clothPercentageInput" value="100"></input>
             </div>
             <div id="printAmount">
                 <div>
@@ -58,7 +58,7 @@
                 <input type="checkbox" id="repeatCustomer" name="repeatCustomer" value="repeat">
             </div>
             <div>
-                <label for="colorSwap">Antal färg</label>
+                <label for="colorSwap">Färgbyte (Extra antal färger)</label>
                 <input type="checkbox" id="colorSwap" name="colorSwapCheck" value="swap" onclick="displayColorSwap()">
                 <div>
                     <label for="colorSwapRange" class="showColorSwap">Hur många olika färger?</label>
@@ -67,9 +67,9 @@
                 </div>
             </div>
             <div>
-                <label for="percentage">Öka priset för färg</label>
+                <label for="percentage">Öka priset för tryck</label>
                 <input type="range" min="10" max="300" value="50" class="slider" id="percentage">
-                <input id="percentageInput" value="10"></input>
+                <input id="percentageInput" value="50"></input>
             </div>
             <div>
                 <button id="calcuteThePriceButton" onclick="calcuteThePrice()">Calculate</button>
