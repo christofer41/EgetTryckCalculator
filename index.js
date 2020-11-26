@@ -243,6 +243,11 @@ function checkPriceForCloth() {
  */
 function calcuteThePriceForCustomer() {
     let repeatCustomer = document.getElementById("repeatCustomer").checked; //If the customer is a repeat customer
+
+    //If the user wants to have different types of colors
+    let colorSwap = document.getElementById("colorSwap").checked;
+    //How many different colors
+    let amountOfColorSwap = document.getElementById("colorSwapDisplay").value;
         
     let percentagePrice = document.getElementById("percentageInput").value;
     let amountOfCloth = document.getElementById("clothDisplay").value
@@ -258,21 +263,23 @@ function calcuteThePriceForCustomer() {
     let frontColor;
     let backColor;
 
-        // //If the customer is a repeating customer
-        if (repeatCustomer) {
+    // //If the customer is a repeating customer
+    if (repeatCustomer) {
         leftArmColor = repeatPrice * leftArmNumber;
         rightArmColor = repeatPrice * rightArmNumber;
         frontColor = repeatPrice * frontNumber;
         backColor = repeatPrice * backNumber;
     
-        }else {
+    }else {
             //One time payment
         leftArmColor = clothPrice * leftArmNumber;
         rightArmColor = clothPrice * rightArmNumber;
         frontColor = clothPrice * frontNumber;
         backColor = clothPrice * backNumber;
-        }
-        
+    }
+    
+    
+
         let test1 = thePriceForTheCloth + leftArmColor + rightArmColor + frontColor + backColor
         test1 = (test1 * percentageForCloth)
         let test2 = (thePriceForTheColors * amountOfCloth);
@@ -294,6 +301,14 @@ function calcuteThePriceForCustomer() {
     let displayThePriceOne = document.getElementById("displayThePricePerArticleCustomer");
     let displayThePriceAllMoms = document.getElementById("displayThePriceWithMoms");
     let displayThePriceOneMoms = document.getElementById("displayThePricePerArticleWithMoms");
+
+
+    //If the user has asked for multiple colors
+    if (colorSwap) {
+        let colorSwapCost = swapPrice * amountOfColorSwap;
+  
+        test3 = test3 + colorSwapCost;
+    }
      
 
     thePriceForAll = roundThePrice(test3);
