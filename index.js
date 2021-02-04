@@ -22,7 +22,6 @@ let thePriceForTheColors;
 let thePriceForTheCloth;
 
 
-alert("Hello :D")
 
 
 window.addEventListener("load", () => {
