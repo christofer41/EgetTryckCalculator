@@ -30,7 +30,7 @@ window.addEventListener("load", () => {
 
     document.addEventListener("keyup", function(event) {
     // Number 13 is the "Enter" key on the keyboard
-    if (event.keyCode === 13 || event.key == "enter") {
+    if (event.keyCode === 13 || event.key == "enter" || event.keyCode === 9 || event.key == "tab") {
     // Cancel the default action, if needed
     event.preventDefault();
     // Trigger the button element with a click
