@@ -22,6 +22,9 @@ let thePriceForTheColors;
 let thePriceForTheCloth;
 
 
+alert("Hello :D")
+
+
 window.addEventListener("load", () => {
     let clothSelector = document.getElementById("clothTypeDropdown");
     let clothPrice = document.getElementById("clothTypePrice");
