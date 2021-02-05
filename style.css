@@ -30,6 +30,7 @@ main {
 
 
 
+
 #top >* >*, #bottom >* >* {
     margin: 0;
     display: flex;
@@ -133,4 +134,11 @@ div{
     text-align: center;
     display: flex;
     justify-content: center;
+}
+
+
+
+#amountColorTextDiv {
+    border: none;
+    font-size: 21px;
 }
